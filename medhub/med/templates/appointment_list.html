@@ -1,0 +1,138 @@
+<!-- med/templates/appointment_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 5px;
+            padding: 0;
+        }
+
+        header {
+            background-color: #990033;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #ffccdc;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #990033;
+            font-family:'Arial', sans-serif;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            background-color: #ffccdc;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        li:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        footer {
+            background-color: #990033;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            margin-bottom: 0 px;
+        }
+
+        .back-button {
+            background-color: #009688; /* Choose a color for the back button */
+            color: #ffccdc;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 640px;
+            font-size: 1em;
+            transition: background-color 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background-color: #00796b; /* Darker color on hover for the back button */
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Appointment List</h1>
+    </header>
+
+    <main>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <a href="{% url 'home' %}" class="back-button">Back to Home</a>
+        {% for doctor, appointments in doctor_appointments.items %}
+            <section>
+                <h2>{{ doctor.name }} - {{ doctor.specialty }}</h2>
+                {% if appointments %}
+                    <ul>
+                        {% for appointment in appointments %}
+                            <li>
+                                <strong>Patient:</strong> {{ appointment.patient.name }}<br>
+                                <strong>Date:</strong> {{ appointment.date }}<br>
+                                <strong>Time:</strong> {{ appointment.time }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No appointments</p>
+                {% endif %}
+            </section>
+        {% endfor %}
+    </main>
+
+</body>
+</html>

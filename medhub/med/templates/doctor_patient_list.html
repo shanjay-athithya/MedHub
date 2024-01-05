@@ -1,0 +1,136 @@
+<!-- med/templates/doctor_patient_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Patient List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #990030;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            width: 100%;
+            text-align: center;
+            color: #ffccdc;
+            padding: 20px;
+            margin: 0;
+            border-bottom: 2px solid white;
+
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        li {
+            width: 400px;
+            margin: 20px;
+            background-color: #ffccdc;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        li:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        strong {
+            color: #990030;
+            font-weight: bold;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        form {
+            margin-top: 15px;
+        }
+
+        button {
+            background-color: #009688;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #c0392b;
+        }
+
+        p {
+            text-align: center;
+            color: #ffb3b3;
+            margin: 0;
+        }
+
+        .back-button {
+            background-color: #009688; /* Choose a color for the back button */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 1em;
+            transition: background-color 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background-color: #00796b; /* Darker color on hover for the back button */
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Doctor Patient List</h1>
+    <a href="{% url 'doctor_home' %}" class="back-button">Back to Doctor Home</a>
+    {% if patients %}
+        <ul>
+            {% for patient in patients %}
+                <li>
+                    <strong>Name:</strong> {{ patient.name }}<br>
+                    <strong>Age:</strong> {{ patient.age }}<br>
+                    <strong>Diseases:</strong>
+                    {% for disease in patient.diseases.all %}
+                        {{ disease.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    <form method="post" action="{% url 'remove_patient' patient.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Remove Patient</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No patients assigned to this doctor.</p>
+    {% endif %}
+</body>
+</html>

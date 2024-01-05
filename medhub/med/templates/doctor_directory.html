@@ -1,0 +1,145 @@
+<!-- med/templates/doctor_directory.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Directory</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #009688;
+            color: #333;
+            margin: 5px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            background-color: #009688;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #ffccdc;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+            color:#ffccdc;
+        }
+        
+        main {
+            padding: 20px;
+            background-color: #ffccdc;
+            border-radius: 10px;
+            flex: 1;
+            margin: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        
+        li {
+            width: 300px; 
+            height: 300px; 
+            margin: 20px;
+            border: 3px solid #990033;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        li:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        img {
+            width: 150px; 
+            height: 150px;
+            border-radius: 50%; 
+            margin-bottom: 20px; 
+            object-fit: cover;
+        }
+        
+        p {
+            margin: 0; 
+            color: #555;
+        }
+        
+        footer {
+            background-color: #ffccdc;
+            font-size: 16px;
+            font-weight: solid;
+            color: #990033;
+            padding: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .back-button {
+            background-color: #009688; /* Choose a color for the back button */
+            color: #ffccdc;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 640px;
+            font-size: 1em;
+            transition: background-color 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background-color: #00796b; /* Darker color on hover for the back button */
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Doctor Directory</h1>
+    </header>
+
+    <main>
+        <a href="{% url 'home' %}" class="back-button">Back to Home</a>
+        {% if doctors %}
+            <ul>
+                {% for doctor in doctors %}
+                    <li>
+                        <img src="{{ doctor.image_url }}" alt="{{ doctor.name }}">
+                        <p>{{ doctor.name }}</p>
+                        <p>{{ doctor.specialty }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No doctors available.</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        &copy; 2023 Hospital Management System
+    </footer>
+</body>
+</html>

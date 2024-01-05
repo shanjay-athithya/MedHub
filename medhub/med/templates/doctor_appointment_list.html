@@ -1,0 +1,132 @@
+<!-- med/templates/doctor_appointment_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Appointment List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #990030;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffccdc; /* Header color */
+            padding: 20px;
+            margin: 0;
+            border-bottom: 2px solid white;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            text-align: left;
+        }
+
+        li {
+            background-color: #ffccdc;
+            width: 600px;
+            height: 80px;
+            padding: 20px;
+            border-radius: 8px;
+            margin-left: 410px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+        }
+
+        li:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        strong {
+            color: #990030; /* Strong text color */
+            font-size: 19px;
+            font-weight: bold;
+            margin-left: 80px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        form {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        button {
+            background-color: #009688; /* Button color */
+            color: #fff;
+            margin-right: 50px;
+            margin-bottom: 20px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #c0392b; /* Button color on hover */
+        }
+
+        p {
+            text-align: center;
+            color: #ffb3b3;
+            margin: 20px 0;
+        }
+
+        .back-button {
+            background-color: #009688; /* Choose a color for the back button */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 650px;
+            font-size: 1em;
+            transition: background-color 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background-color: #00796b; /* Darker color on hover for the back button */
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Doctor Appointment List</h1>
+    <a href="{% url 'doctor_home' %}" class="back-button">Back to Doctor Home</a>
+    {% if appointments %}
+        <ul>
+            {% for appointment in appointments %}
+                <li>
+                    <strong>Patient : </strong> {{ appointment.patient.name }}<br>
+                    <strong>Date  : </strong> {{ appointment.date }}<br>
+                    <strong>Time  : </strong> {{ appointment.time }}
+                    <form method="post" action="{% url 'remove_appointment' appointment.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Remove Appointment</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No appointments for this doctor.</p>
+    {% endif %}
+</body>
+</html>

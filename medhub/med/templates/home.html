@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            /*background-image: url('{% static "med/images/hos.webp" %}');*/
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #ffccdc;
+        }
+        
+        header {
+            background-color: #990033; /* Increased opacity for header */
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 3px solid #009688;
+        }
+        
+        h1 {
+            margin-top: 50px;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #ffccdc;
+        }
+        
+        nav {
+            background-color: #990033; /* Changed background color to a shade of blue */
+            color: #009688;
+            height: 60px;
+            padding: 0.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added a subtle box shadow for depth */
+        }
+        
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+        
+        nav a:hover {
+            color: #cc0066; /* Darker color on hover for better feedback */
+        }
+        
+        main {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        main::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+        
+        section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-family: 'Arial', sans-serif;
+            color: #009688;
+            font-weight: bold;
+            font-size: 25px;
+        }
+        
+        footer {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffccdc; /* Darkened footer background color */
+            border-top: 3px solid #009688;
+            color: #009688;
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .btn {
+            background-color: #990033; /* Darker button color */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            transition: background-color 0.3s ease-in-out;
+        }
+        
+        .btn:hover {
+            background-color: #cc0066; /* Darker color on hover for buttons */
+        }
+        
+        .doctors-page-btn, .admin-btn {
+            margin-left: 15px;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the MedHub</h1>
+    </header>
+
+    <nav>
+        <a href="{% url 'doctor_directory' %}">Doctor Directory</a>
+        <a href="{% url 'schedule_appointment' %}">Schedule Appointment</a>
+        <a href="{% url 'appointment_list' %}">Appointment List</a>        
+        <a href="{% url 'doctor_verification' %}" class="btn doctors-page-btn">Doctor's Page</a>
+        {% if user.is_superuser %}
+            <a href="{% url 'admin_patient_history' %}" class="btn admin-btn">Patient History</a>
+        {% endif %}
+    </nav>
+
+    <main>
+        <section>
+            <h2>About Us:</h2>
+            <p>
+                Welcome to the MedHub! We are dedicated to providing efficient 
+                and effective healthcare solutions, leveraging the latest technologies to enhance 
+                patient care and streamline medical processes. Our team of skilled professionals 
+                is committed to ensuring the well-being of our patients and facilitating a seamless 
+                experience within our healthcare ecosystem.
+            </p>
+        </section>
+
+        <section>
+            <h2>Services:</h2>
+            <ul>
+                <li>Appointment Scheduling: Easily schedule appointments with our specialized medical professionals using our user-friendly interface.</li>
+                <li>Patient Management: Our comprehensive patient management system allows healthcare providers to maintain accurate and up-to-date patient records, ensuring personalized care.</li>
+                <li>Doctor Directory: Explore our directory of experienced doctors, each dedicated to delivering high-quality healthcare services.</li>
+                <li>Medical History Tracking: Access detailed medical histories for patients, enabling healthcare professionals to make informed decisions about their care.</li>
+                <li>Efficient Administration: Simplify administrative tasks with our efficient system, allowing medical staff to focus more on patient care.</li>
+                <li>Appointment Reminders: Stay informed with automated appointment reminders, reducing the likelihood of missed appointments.</li>
+                <li>Secure Data Handling: We prioritize the security and confidentiality of patient information, implementing robust measures to protect sensitive data.</li>
+                <li>User-Friendly Interface: Our user-friendly platform ensures a seamless experience for both healthcare providers and patients, promoting accessibility and ease of use.</li>
+                <li>Doctor Verification: A specialized portal for doctors, facilitating the verification process and ensuring only qualified professionals are part of our healthcare network.</li>
+                <li>Emergency Services: In case of emergencies, our system provides quick access to critical information, aiding healthcare providers in delivering prompt and effective care.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2023 MedHub, Inc.
+    </footer>
+</body>
+</html>

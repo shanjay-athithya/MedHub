@@ -1,0 +1,121 @@
+<!-- med/templates/doctor_home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Home</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #990030;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #009688;
+            margin-bottom: 20px;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Add this to your existing styles */
+        .button-container {
+            width: 500px;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #009688; /* Background color for the container */
+            padding: 30px; /* Add padding for some space around the buttons */
+            border-radius: 10px; /* Add rounded corners to the container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+        }
+
+
+        button {
+            background-color: #ffccdc;
+            color: #990030;
+            width: 300px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #cc0066;
+        }
+
+        button:last-child {
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            background-color: #009688; /* Choose a color for the back button */
+            color: #ffccdc;
+            text-align: center;
+            width: 200px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            margin: 30px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background-color: #00796b; /* Darker color on hover for the back button */
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <h1>Welcome, Dr. {{ doctor_name }}</h1>
+
+    <div class="button-container">
+        <a href="{% url 'doctor_patient_list' %}">
+            <button>View Patient List</button>
+        </a>
+
+        <a href="{% url 'doctor_appointment_list' %}">
+            <button>View Appointment List</button>
+        </a>
+
+        <a href="{% url 'new_patient' %}">
+            <button>New Patient</button>
+        </a>
+
+        <a href="{% url 'home' %}" class="back-button">Back to Home</a>
+    </div>
+</body>
+</html>
